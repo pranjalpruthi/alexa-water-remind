@@ -12,13 +12,14 @@ class LaunchRequestHandler(AbstractRequestHandler):
         return ask_utils.is_request_type("LaunchRequest")(handler_input)
 
     def handle(self, handler_input):
-        speak_output = "Welcome to the Water Pump Reminder Skill. When would you like to start the reminders?"
+        speak_output = "Welcome to Water Reminder. When would you like to start the reminders?"
         return (
             handler_input.response_builder
                 .speak(speak_output)
                 .ask(speak_output)
                 .response
         )
+
 
 class SetReminderIntentHandler(AbstractRequestHandler):
     def can_handle(self, handler_input):
@@ -41,7 +42,7 @@ class SetReminderIntentHandler(AbstractRequestHandler):
                 "spokenInfo": {
                     "content": [{
                         "locale": "en-US",
-                        "text": "Remember to start your water pump."
+                        "text": "It's time for your water reminder."
                     }]
                 }
             },
@@ -52,7 +53,7 @@ class SetReminderIntentHandler(AbstractRequestHandler):
 
         reminder_client.create_reminder(reminder_request)
 
-        speak_output = f"I've set a reminder to start your water pump every odd day, beginning on {start_date.strftime('%B %d, %Y')}."
+        speak_output = f"I've set a water reminder for every odd day, beginning on {start_date.strftime('%B %d, %Y')}."
         return (
             handler_input.response_builder
                 .speak(speak_output)
